@@ -1,0 +1,42 @@
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.offset {
+  margin-left: 200px;
+}
+
+#sidebar {
+  .v-navigation-drawer {
+
+    background-color: #3F51B5;
+    color: white;
+    text-decoration: none;
+    .v-list{
+      padding-top: 20px !important;
+      i {
+        color: white;
+      }
+      a {
+        color: white !important;
+        text-decoration: none;
+        &:hover {
+          color: white;
+          text-decoration: none,
+        }
+      }
+      [role="listitem"]:hover {
+        background-color: #555;
+      }
+      .router-link-exact-active {
+        [role="listitem"]  {
+          background-color: #555;
+        }
+      }
+    }
+  }
+}

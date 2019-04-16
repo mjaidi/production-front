@@ -1,0 +1,5 @@
+// GETTERS
+
+export default {
+
+};
