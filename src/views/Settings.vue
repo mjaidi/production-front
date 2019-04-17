@@ -1,13 +1,13 @@
 <template>
   <div>
-   <div class="title">Devis</div>
+    <div class="title">Paramètres</div>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'DevisList',
+  name: 'Settings',
   components: {
   },
 };

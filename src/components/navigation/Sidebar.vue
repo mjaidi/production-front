@@ -1,8 +1,8 @@
 <template>
-  <div id="sidebar">
-    <v-navigation-drawer fixed width="200" mobile-break-point=900>
+  <div id="sidebar" v-bind:class="{'d-none': layout.shrink}">
+    <v-navigation-drawer fixed width="200" mobile-break-point=900 >
       <div class="title">
-        <v-icon class="title-icon">dashboard</v-icon>
+        <v-icon class="title-icon">donut_small</v-icon>
         <h3 > Calcul des Besoins</h3>
       </div>
 
@@ -27,27 +27,33 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name: 'Sidebar',
     data () {
       return {
         items: [
-          { title: 'Produits', icon: 'dashboard', path: '/' },
-          { title: 'Devis', icon: 'question_answer', path: '/devis_list' }
+          { title: 'Produits', icon: 'inbox', path: '/' },
+          { title: 'Devis', icon: 'attach_money', path: '/devis_list' },
+          { title: 'Parametres', icon: 'settings', path: '/settings' }
         ],
         right: true
       }
     },
+    computed: mapState(['layout'])
   }
 </script>
 
 <style lang="scss" scoped>
   .title {
     padding-bottom: 10px;
-    padding-top: 30px;
+    padding-top: 20px;
+    text-align: center;
     h3 {
-      font-size: 20px;
-      padding-top: 5px;
+      font-size: 18px;
+      padding-top: 15px;
+      font-weight: 400;
     }
     .title-icon {
       margin: 0 auto;

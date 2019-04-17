@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Elements from './views/Elements.vue';
 import DevisList from './views/DevisList.vue';
+import Settings from './views/Settings.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'elements',
       component: Elements,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
     },
   ],
 });

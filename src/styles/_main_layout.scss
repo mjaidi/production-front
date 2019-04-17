@@ -4,39 +4,35 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #E5E5E5;
 }
 
 .offset {
   margin-left: 200px;
 }
-
-#sidebar {
-  .v-navigation-drawer {
-
-    background-color: #3F51B5;
-    color: white;
-    text-decoration: none;
-    .v-list{
-      padding-top: 20px !important;
-      i {
-        color: white;
-      }
-      a {
-        color: white !important;
-        text-decoration: none;
-        &:hover {
-          color: white;
-          text-decoration: none,
-        }
-      }
-      [role="listitem"]:hover {
-        background-color: #555;
-      }
-      .router-link-exact-active {
-        [role="listitem"]  {
-          background-color: #555;
-        }
-      }
-    }
+@media (max-width: 900px) {
+  .offset {
+    margin-left: 0px;
   }
+}
+
+.title {
+  text-align: left;
+  font-size: 28px;
+  padding: 20px;
+}
+
+.subtitle {
+  text-align: left;
+  padding: 15px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.card {
+  margin: 0 10px;
+}
+
+.d-none {
+  display: none;
 }
