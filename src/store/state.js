@@ -6,7 +6,6 @@ export default {
   },
   elements: {
     list: [],
-    active_element: null,
-    active_element_properties: null,
+    activeElement: null,
   },
 };

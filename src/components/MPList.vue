@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-data-table :headers="headers":items="items"item-key="name" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort >
+    <v-data-table :headers="headers":items="items"item-key="name" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort  >
       <template v-slot:items="props">
-          <td class="text-xs-left">{{ props.item.title }}</td>
-          <td class="text-xs-right">{{ props.item.unit }}</td>
-          <td class="text-xs-right">{{ props.item.category }}</td>
-          <td class="text-xs-right">{{ props.item.type_element }}</td>
-          <td class="text-xs-right">{{ props.item.purchase_price_ht }}</td>
-          <td class="text-xs-right">{{ props.item.sales_price_ht }}</td>
+          <td class="text-xs-left"  @click="setActiveItem(props.item.id)">{{ props.item.title }}</td>
+          <td class="text-xs-right" @click="setActiveItem(props.item.id)">{{ props.item.unit }}</td>
+          <td class="text-xs-right" @click="setActiveItem(props.item.id)">{{ props.item.category }}</td>
+          <td class="text-xs-right" @click="setActiveItem(props.item.id)">{{ props.item.type_element }}</td>
+          <td class="text-xs-right" @click="setActiveItem(props.item.id)">{{ props.item.purchase_price_ht }}</td>
+          <td class="text-xs-right" @click="setActiveItem(props.item.id)">{{ props.item.sales_price_ht }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -34,6 +34,11 @@ export default {
     ...mapState(['elements']),
     items() {
       return this.elements.list.map(e => e.attributes)
+    }
+  },
+  methods: {
+    setActiveItem(id) {
+      this.$store.dispatch('SET_ACTIVE_ELEMENT', id)
     }
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar >
+  <v-toolbar fixed>
     <v-toolbar-side-icon @click="toggleSidebar()"></v-toolbar-side-icon>
 
     <v-toolbar-title >iBuild</v-toolbar-title>

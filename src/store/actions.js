@@ -20,4 +20,7 @@ export default {
      .then(res => commit('UPDATE_PELEMENTS', res.data.data))
      .catch(err => console.log(err));
   },
+  SET_ACTIVE_ELEMENT: (store, payload) => {
+    store.commit('CHANGE_ACTIVE_ELEMENT', payload)
+  },
 };

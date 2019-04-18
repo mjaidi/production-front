@@ -1,0 +1,35 @@
+.subtitle {
+  text-align: left;
+  padding: 15px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.card {
+  margin: 10px;
+  padding: 5px 0;
+  .card-subtitle {
+    text-align: left;
+    margin: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #777;
+    font-size: 17px;
+  }
+  .card-info-text {
+    text-align: left;
+    margin: 5px 20px;
+    p {
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted #ccc;
+    }
+    .info-title {
+      display: inline-block;
+      color: #777;
+      width: 150px;
+    }
+    .info-content {
+      font-weight: bold;
+    }
+  }
+}

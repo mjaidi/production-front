@@ -1,7 +1,7 @@
 <template>
   <div id="sidebar" v-bind:class="{'d-none': layout.shrink}">
     <v-navigation-drawer fixed width="200" mobile-break-point=900 >
-      <div class="title">
+      <div class="sidebar-title">
         <v-icon class="title-icon">donut_small</v-icon>
         <h3 > Calcul des Besoins</h3>
       </div>
@@ -46,10 +46,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .title {
+  .sidebar-title {
+    padding: 20px;
     padding-bottom: 10px;
     padding-top: 20px;
     text-align: center;
+    font-size: 28px;
     h3 {
       font-size: 18px;
       padding-top: 15px;
