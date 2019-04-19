@@ -17,13 +17,21 @@
 
     <div class="card-subtitle">Composition</div>
     <div class="card-info-text">
-      <v-data-table :headers="headers":items="activeElement.attributes.child_elements"item-key="name" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort  >
+      <v-data-table :headers="headers":items="activeElement.attributes.child_elements" item-key="child.title" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort  >
         <template v-slot:items="props">
-            <td class="text-xs-left" >{{ props.item.title }}</td>
-            <td class="text-xs-right">{{ props.item.unit }}</td>
-            <td class="text-xs-right">{{ props.item.category }}</td>
-            <td class="text-xs-right">{{ props.item.purchase_price_ht }}</td>
+          <tr  @click="props.expanded = !props.expanded" >
+            <td class="text-xs-left" ><span :class="props.item.grandchildren.length > 0 ? 'expandable' : ''"></span>{{ props.item.child.title }}</td>
+            <td class="text-xs-right">{{ props.item.child.unit }}</td>
+            <td class="text-xs-right">{{ props.item.child.category }}</td>
+            <td class="text-xs-right">{{ props.item.child.purchase_price_ht }}</td>
           </tr>
+        </template>
+        <template  v-slot:expand="props">
+          <v-card class="elevation-10" v-if="props.item.grandchildren.length > 0">
+            <v-card-text>
+                <ElementComposition :items='props.item.grandchildren' />
+            </v-card-text>
+          </v-card>
         </template>
       </v-data-table>
     </div>
@@ -31,16 +39,21 @@
 </template>
 
 <script>
+  import ElementComposition from './ElementComposition'
   export default {
     name: 'DetailElement',
-  data: () => ({
-    headers: [
-      { text: 'Designation Produit', align: 'left', value: 'title'},
-      { text: 'Unités', value: 'unit', align: 'right'},
-      { text: 'Catégorie', value: 'category', align: 'right'},
-      { text: 'Prix Revient', value: 'purchase_price_ht', align: 'right'},
-    ],
-  }),
+    components: {
+      ElementComposition
+    },
+    data: () => ({
+      expand: false,
+      headers: [
+        { text: 'Designation Produit', align: 'left', value: 'title'},
+        { text: 'Unités', value: 'unit', align: 'right'},
+        { text: 'Catégorie', value: 'category', align: 'right'},
+        { text: 'Prix Revient', value: 'purchase_price_ht', align: 'right'},
+      ],
+    }),
     computed: {
       activeElement() {
         return this.$store.getters.elements.activeElement
@@ -48,3 +61,17 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .expandable {
+    border-width: 8px ;
+    border-style: solid;
+    border-right: 8px  solid transparent;
+    border-color: rgba(0,0,0,.50) transparent transparent;
+    width: 0;
+    height: 0;
+    position: relative;
+    top: 10px;
+    margin-right: 5px;
+  }
+</style>
