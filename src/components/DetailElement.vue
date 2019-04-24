@@ -9,7 +9,7 @@
     </div>
     <div class="card-subtitle">Prix</div>
     <div class="card-info-text">
-      <p><span class="info-title">Prix de Revient</span><span class="info-content">{{activeElement.attributes.purchase_price_ht}} dh</span></p>
+      <p><span class="info-title">Prix de Revient</span><span class="info-content">{{activeElement.attributes.element_cost}} dh</span></p>
       <p><span class="info-title">Prix de Vente HT</span><span class="info-content">{{activeElement.attributes.sales_price_ht}} dh</span></p>
       <p><span class="info-title">Taux Taxe</span><span class="info-content">{{activeElement.attributes.sales_tax*100}}%</span></p>
       <p><span class="info-title">Prix de Vente TTC</span><span class="info-content">{{activeElement.attributes.sales_price_ttc}} dh</span></p>
@@ -17,13 +17,14 @@
 
     <div class="card-subtitle">Composition</div>
     <div class="card-info-text">
-      <v-data-table :headers="headers":items="activeElement.attributes.child_elements" item-key="child.title" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort  >
+      <v-data-table :headers="headers":items="activeElement.attributes.child_elements" item-key="child.info.id" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort  >
         <template v-slot:items="props">
           <tr  @click="props.expanded = !props.expanded" >
-            <td class="text-xs-left" ><span :class="props.item.grandchildren.length > 0 ? 'expandable' : ''"></span>{{ props.item.child.title }}</td>
-            <td class="text-xs-right">{{ props.item.child.unit }}</td>
-            <td class="text-xs-right">{{ props.item.child.category }}</td>
-            <td class="text-xs-right">{{ props.item.child.purchase_price_ht }}</td>
+            <td class="text-xs-left" ><span :class="props.item.grandchildren.length > 0 ? 'expandable' : ''"></span>{{ props.item.child.info.title }}</td>
+            <td class="text-xs-right">{{ props.item.child.info.unit }}</td>
+            <td class="text-xs-right">{{ props.item.child.info.category }}</td>
+            <td class="text-xs-right">{{ props.item.child.quantity }}</td>
+            <td class="text-xs-right">{{ props.item.child.cost }}</td>
           </tr>
         </template>
         <template  v-slot:expand="props">
@@ -51,7 +52,8 @@
         { text: 'Designation Produit', align: 'left', value: 'title'},
         { text: 'Unités', value: 'unit', align: 'right'},
         { text: 'Catégorie', value: 'category', align: 'right'},
-        { text: 'Prix Revient', value: 'purchase_price_ht', align: 'right'},
+        { text: 'Quantité', value: 'quantity', align: 'right'},
+        { text: 'Prix Revient', value: 'cost', align: 'right'},
       ],
     }),
     computed: {
