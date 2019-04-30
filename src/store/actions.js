@@ -1,5 +1,8 @@
 // ACTIONS
 import axios from 'axios';
+import router from '../router';
+import elementsActions from './actions/elements_actions';
+import estimatesActions from './actions/estimates_actions';
 
 const baseUrl = 'http://localhost:3000/api/v1';
 const config = {
@@ -11,52 +14,6 @@ const config = {
 
 
 export default {
-  TOOGLE_SIDEBAR: (store) => {
-    let sidebar = null;
-    store.state.layout.shrink === true ? sidebar = false : sidebar = true;
-    store.commit('TOOGLE_SIDEBAR_STATE', sidebar);
-  },
-  TOOGLE_SIDE_BY_SIDE: (store) => {
-    let sideBySide = null;
-    store.state.layout.sideBySide === true ? sideBySide = false : sideBySide = true;
-    store.commit('TOOGLE_SIDE_BY_SIDE', sideBySide);
-  },
-  GET_ELEMENTS: async ({ commit }) => {
-    await axios.get(`${baseUrl}/elements`, config)
-      .then(res => commit('UPDATE_ELEMENTS', res.data.data))
-      .catch(err => console.log(err));
-  },
-  GET_ELEMENT: async ({ commit }, payload) => {
-    await axios.get(`${baseUrl}/elements/${payload}`, config)
-      .then(res => commit('UPDATE_ACTIVE_ELEMENT', res.data.data))
-      .catch(err => console.log(err));
-  },
-  SET_ACTIVE_ELEMENT: (store, payload) => {
-    store.commit('CHANGE_ACTIVE_ELEMENT', payload);
-  },
-  CREATE_ELEMENT: async ({ commit }, payload) => {
-    await axios.post(`${baseUrl}/elements`, payload.data, config)
-      .then(res => commit('CREATE_NEW_ELEMENT', res.data.object.data))
-      .catch(err => console.log(err));
-  },
-  UPDATE_ELEMENT: async ({ commit }, payload) => {
-    await axios.patch(`${baseUrl}/elements/${payload.id}`, payload.data, config)
-      .then(res => commit('UPDATE_ACTIVE_ELEMENT', res.data.object.data))
-      .catch(err => console.log(err));
-  },
-  CREATE_JOIN: async ({ dispatch }, payload) => {
-    await axios.post(`${baseUrl}/elements/${payload.id}/join_elements`, payload.data, config)
-      .then(res => dispatch('GET_ELEMENT', payload.id))
-      .catch(err => console.log(err));
-  },
-  DESTROY_JOIN: async ({ dispatch }, payload) => {
-    await axios.delete(`${baseUrl}/elements/${payload.elem_id}/join_elements/${payload.join_id}`, config)
-      .then(res => dispatch('GET_ELEMENT', payload.elem_id))
-      .catch(err => console.log(err));
-  },
-  UPDATE_JOIN: async ({ dispatch }, payload) => {
-    await axios.patch(`${baseUrl}/elements/${payload.elem_id}/join_elements/${payload.join_id}`, payload.data, config)
-      .then(res => dispatch('GET_ELEMENT', payload.elem_id))
-      .catch(err => console.log(err));
-  },
+  ...elementsActions,
+  ...estimatesActions,
 };

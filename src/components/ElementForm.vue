@@ -43,7 +43,7 @@
             <v-card class="card" >
               <div class="subtitle">Composition</div>
               <div v-if="!create">
-                <JoinElements ref="joinElements" v-bind:parent_id="id"/>
+                <JoinElements ref="joinElements" v-bind:parent_id="id" v-bind:type_join="'join_elements'"/>
               </div>
               <div v-if="create">
                 <p>Veuillez enregister les infos du produit avant d'ajouter une composition</p>

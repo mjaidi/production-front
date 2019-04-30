@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Elements from './views/Elements.vue';
-import DevisList from './views/DevisList.vue';
+import EstimatesList from './views/EstimatesList.vue';
 import Settings from './views/Settings.vue';
 import EditElement from './views/EditElement.vue';
 import CreateElement from './views/CreateElement.vue';
+import CreateEstimate from './views/CreateEstimate.vue';
+import EditEstimate from './views/EditEstimate.vue';
 
 Vue.use(Router);
 
@@ -13,9 +15,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/devis_list',
-      name: 'devis_list',
-      component: DevisList,
+      path: '/estimates',
+      name: 'estimates',
+      component: EstimatesList,
     },
     {
       path: '/',
@@ -37,6 +39,17 @@ export default new Router({
       path: '/elements/create',
       name: 'create_elements',
       component: CreateElement,
+    },
+    {
+      path: '/estimates/create',
+      name: 'create_estimate',
+      component: CreateEstimate,
+    },
+    {
+      path: '/estimates/edit/:id',
+      name: 'edit_estimate',
+      component: EditEstimate,
+      props: true,
     },
   ],
 });

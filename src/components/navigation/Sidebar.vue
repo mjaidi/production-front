@@ -35,7 +35,7 @@
       return {
         items: [
           { title: 'Produits', icon: 'inbox', path: '/' },
-          { title: 'Devis', icon: 'attach_money', path: '/devis_list' },
+          { title: 'Devis', icon: 'attach_money', path: '/estimates' },
           { title: 'Parametres', icon: 'settings', path: '/settings' }
         ],
         right: true

@@ -1,9 +1,8 @@
-import Vue from 'vue'
+import Vue from 'vue';
 /**
  * Enabled v-data-table to have moire than one filter.
  */
 class MultiFilters {
-
   /**
    * Constructor.
    *
@@ -54,14 +53,13 @@ class MultiFilters {
 
     return filteredItems;
   }
-
 }
 
 // Vue plugin.
 const MultiFiltersPlugin = {
   install(Vue, options) {
     Vue.prototype.$MultiFilters = MultiFilters;
-  }
+  },
 };
 
 Vue.use(MultiFiltersPlugin);

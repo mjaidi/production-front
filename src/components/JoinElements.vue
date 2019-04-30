@@ -40,24 +40,37 @@
       }
     },
     computed: {
-      ...mapState(['elements']),
+      ...mapState(['elements', 'estimates']),
       childElements() {
-        const list =  this.elements.list.map(e => ({name: e.attributes.title, value: e.id}))
-        return list.filter(e => e.value !== this.parent_id)
+        const list =  this.elements.list.map(e => ({name: e.attributes.title, value: e.id, type_element: e.attributes.type_element}))
+        if (this.type_join === 'join_elements') return list.filter(e => e.value !== this.parent_id)
+        if (this.type_join === 'estimate_elements') return list.filter(e => e.type_element !== 'MP')
       },
       activeElement() {
         return this.elements.activeElement
+      },
+      activeEstimate() {
+        return this.estimates.activeEstimate
       }
     },
-    props: ['parent_id'],
+    props: ['parent_id', 'type_join'],
     watch: {
       activeElement() {
-         this.joinElements = this.elements.activeElement.attributes.child_elements.map(c => ({
+         this.joinElements = this.activeElement.attributes.child_elements.map(c => ({
           parent_element_id: this.parent_id,
           child_element_id: (c.child.info === null ? null : {name: c.child.info.title, value: c.child.info.id}),
           quantity: c.child.quantity,
           id: c.child.join_id,
           cost: c.child.cost
+        }))
+      },
+      activeEstimate() {
+         this.joinElements = this.activeEstimate.attributes.estimate_elements_info.map(c => ({
+          parent_element_id: this.parent_id,
+          child_element_id: (c.info === null ? null : {name: c.info.title, value: c.info.id}),
+          quantity: c.quantity,
+          id: c.join_id,
+          cost: c.cost
         }))
       }
     },
@@ -70,46 +83,99 @@
         let checkEmptyjoinElements = this.joinElements.filter(join => join.parent_element_id === null)
         if (checkEmptyjoinElements.length >= 1 && this.joinElements.length > 0) return
 
-        const payload = {
-          id: this.parent_id,
-          data: {
-            join_element: {
-              element_parent_id: this.parent_id,
-              element_child_id: null,
-              quantity: null
+        if (this.type_join === 'join_elements') {
+          const payload = {
+            id: this.parent_id,
+            data: {
+              join_element: {
+                element_parent_id: this.parent_id,
+                element_child_id: null,
+                quantity: null
+              }
             }
           }
+          this.$store.dispatch('CREATE_JOIN', payload)
         }
-        this.$store.dispatch('CREATE_JOIN', payload)
+
+        if (this.type_join === 'estimate_elements') {
+          const payload = {
+            id: this.parent_id,
+            data: {
+              estimate_element: {
+                estimate_id: this.parent_id,
+                element_id: null,
+                quantity: null
+              }
+            }
+          }
+          this.$store.dispatch('CREATE_ESTIMATE_ELEMENT', payload)
+        }
+
       },
 
       removeJoin (id) {
-        this.$store.dispatch('DESTROY_JOIN', {elem_id: this.parent_id, join_id: id})
+        if (this.type_join === 'join_elements') {
+          this.$store.dispatch('DESTROY_JOIN', {elem_id: this.parent_id, join_id: id})
+        }
+        if (this.type_join === 'estimate_elements') {
+          this.$store.dispatch('DESTROY_ESTIMATE_ELEMENT', {elem_id: this.parent_id, join_id: id})
+        }
       },
       updateJoin(item) {
-        const payload = {
-          elem_id: this.parent_id,
-          join_id: item.id,
-          data: {
-            join_element: {
-              element_parent_id: this.parent_id,
-              element_child_id: item.child_element_id.value,
-              quantity: item.quantity
+        if (this.type_join === 'join_elements') {
+          const payload = {
+            elem_id: this.parent_id,
+            join_id: item.id,
+            data: {
+              join_element: {
+                element_parent_id: this.parent_id,
+                element_child_id: item.child_element_id.value,
+                quantity: item.quantity
+              }
             }
           }
+          this.$store.dispatch('UPDATE_JOIN', payload)
         }
-        this.$store.dispatch('UPDATE_JOIN', payload)
+        if (this.type_join === 'estimate_elements') {
+          const payload = {
+            elem_id: this.parent_id,
+            join_id: item.id,
+            data: {
+              estimate_element: {
+                estimate_id: this.parent_id,
+                element_id: item.child_element_id.value,
+                quantity: item.quantity
+              }
+            }
+          }
+          this.$store.dispatch('UPDATE_ESTIMATE_ELEMENT', payload)
+        }
       }
     },
     mounted () {
-      this.joinElements = this.elements.activeElement.attributes.child_elements.map(c => ({
-        parent_element_id: this.parent_id,
-        child_element_id: (c.child.info === null ? null : {name: c.child.info.title, value: c.child.info.id}),
-        quantity: c.child.quantity,
-        id: c.child.join_id,
-        cost: c.child.cost
+      if (this.type_join === 'join_elements') {
+        this.joinElements = this.activeElement.attributes.child_elements.map(c => ({
+          parent_element_id: this.parent_id,
+          child_element_id: (c.child.info === null ? null : {name: c.child.info.title, value: c.child.info.id}),
+          quantity: c.child.quantity,
+          id: c.child.join_id,
+          cost: c.child.cost
 
-      }))
+        }))
+      }
+      if (this.elements.updateList) {
+        this.$store.dispatch('GET_ELEMENTS');
+      }
+      if (this.type_join === 'estimate_elements') {
+        this.joinElements = this.activeEstimate.attributes.estimate_elements_info.map(c => ({
+          parent_element_id: this.parent_id,
+          child_element_id: (c.info === null ? null : {name: c.info.title, value: c.info.id}),
+          quantity: c.quantity,
+          id: c.join_id,
+          cost: c.cost
+
+        }))
+      }
     }
   }
 </script>

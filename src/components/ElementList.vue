@@ -54,7 +54,7 @@ export default {
       { text: 'Unités', value: 'unit', align: 'right'},
       { text: 'Catégorie', value: 'category', align: 'right'},
       { text: 'Type', value: 'type_element', align: 'right'},
-      { text: 'Prix Revient HT', value: 'purchase_price_ht', align: 'right'},
+      { text: 'Prix Revient', value: 'purchase_price_ht', align: 'right'},
       { text: 'Prix Vente HT', value: 'sales_price_ht', align: 'right'},
     ],
   }),
@@ -108,6 +108,7 @@ export default {
       this.$store.dispatch('GET_ELEMENTS');
     }
   },
+
 };
 </script>
 

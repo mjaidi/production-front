@@ -59,7 +59,7 @@
     computed: {
       activeElement() {
         return this.$store.getters.elements.activeElement
-      }
+      },
     }
   }
 </script>

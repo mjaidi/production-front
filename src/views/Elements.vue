@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="title">Produits</div>
     <v-container fluid>
       <v-layout row wrap>
@@ -18,9 +19,12 @@
           <v-card class="card"  v-if="activeElement !== null">
             <div class="flex-between">
               <div class="subtitle">Détail {{activeElement.attributes.title}}</div>
-              <router-link  :to="'/elements/edit/' + activeElement.id">
-                <v-btn color="primary" small><v-icon left small>edit</v-icon>modifier</v-btn>
-              </router-link>
+              <div class="flex-between">
+                <router-link  :to="'/elements/edit/' + activeElement.id">
+                  <v-btn color="primary" small><v-icon left small>edit</v-icon>modifier</v-btn>
+                </router-link>
+                <v-icon color="error" @click="destroyElement">delete</v-icon>
+              </div>
             </div>
             <DetailElement />
           </v-card>
@@ -48,6 +52,7 @@ export default {
     activeElement() {
       return this.$store.getters.elements.activeElement
     },
+
     flexClass() {
       if (this.layout.sideBySide) {
         return {
@@ -55,6 +60,12 @@ export default {
         }
       }
     }
-  }
+  },
+  methods: {
+    destroyElement() {
+      this.$store.dispatch('DESTROY_ELEMENT', this.activeElement.id)
+    }
+  },
+
 };
 </script>
