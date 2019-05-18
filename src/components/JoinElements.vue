@@ -11,7 +11,7 @@
         <td class="text-xs-left"><v-combobox @blur="updateJoin(props.item)" :items='childElements' v-model="props.item.child_element_id" item-text="name" item-value="value" search-input></v-combobox></td>
         <td class="text-xs-left width-small"><v-text-field @blur="updateJoin(props.item)" v-model="props.item.quantity"></v-text-field></td>
         <td class="text-xs-left width-small">{{props.item.child_element_id === null ? '' : childElementUnits(props.item.child_element_id.value)}}</td>
-        <td class="text-xs-left width-small">{{props.item.cost}}</td>
+        <td class="text-xs-left width-small">{{Math.round(props.item.cost * 100) / 100}}</td>
         <td class="width-small text-xs-center">
           <v-btn @click="removeJoin(props.item.id)" icon  class="error" ><v-icon>delete</v-icon></v-btn>
         </td>
