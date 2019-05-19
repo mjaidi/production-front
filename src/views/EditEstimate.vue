@@ -6,6 +6,12 @@
         <v-layout row wrap>
           <v-flex xs12 >
             <v-card class="card">
+              <div class="subtitle">Prix de revient</div>
+              <h3 class="text-center">{{ Math.round(activeEstimate.attributes.estimate_cost * 100) / 100}} MAD</h3>
+            </v-card>
+          </v-flex>
+          <v-flex xs12 >
+            <v-card class="card">
               <div class="subtitle">Besions en MP</div>
                 <v-data-table :headers="headers":items="items" item-key="title" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort >
                 <template v-slot:items="props">
@@ -50,7 +56,7 @@ import {mapState} from 'vuex'
     computed: {
       ...mapState(['estimates']),
       activeEstimate() {
-        return this.estimates.activeEstimate
+        return this.estimates.activeEstimate === null ? {attributes: ''} : this.estimates.activeEstimate
       },
       items() {
         return this.activeEstimate === null ? [] : this.activeEstimate.attributes.composition_mp

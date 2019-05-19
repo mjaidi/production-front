@@ -12,12 +12,12 @@
         ></v-text-field>
       </v-flex>
       <v-flex xs6 >
-        <v-select
+        <v-combobox
           class="with-margin"
           :items="categories"
           label="Catégorie"
           @change="filterCategories"
-        ></v-select>
+        ></v-combobox>
       </v-flex>
       <v-flex xs12>
         <v-data-table :headers="headers":items="items" item-key="title" :rows-per-page-items="[10,25,50,100]" rows-per-page-text="Résultats par page" must-sort :search="filters" :custom-filter="customFilter">
@@ -40,6 +40,7 @@
 <script>
 
 import { mapState } from 'vuex'
+import categories from './categories'
 
 export default {
   name: 'ElementList',
@@ -48,7 +49,7 @@ export default {
       title: '',
       category: '',
     },
-    categories: ['Ingrédients', 'Packaging', 'Biscuit SF', 'Biscuits Carton'],
+    categories: categories,
     headers: [
       { text: 'Designation Produit', align: 'left', value: 'title'},
       { text: 'Unités', value: 'unit', align: 'right'},

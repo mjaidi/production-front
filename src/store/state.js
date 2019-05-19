@@ -3,7 +3,7 @@
 export default {
   layout: {
     shrink: false,
-    sideBySide: true,
+    sideBySide: false,
     flash: null,
   },
   elements: {
