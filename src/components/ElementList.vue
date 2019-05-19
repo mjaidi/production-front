@@ -27,7 +27,7 @@
               <td class="text-xs-right">{{ props.item.unit }}</td>
               <td class="text-xs-right">{{ props.item.category }}</td>
               <td class="text-xs-right">{{ props.item.type_element }}</td>
-              <td class="text-xs-right">{{ props.item.element_cost }}</td>
+              <td class="text-xs-right">{{ props.item.purchase_price_ht }}</td>
               <td class="text-xs-right">{{ props.item.sales_price_ht }}</td>
             </tr>
           </template>
@@ -55,7 +55,7 @@ export default {
       { text: 'Unités', value: 'unit', align: 'right'},
       { text: 'Catégorie', value: 'category', align: 'right'},
       { text: 'Type', value: 'type_element', align: 'right'},
-      { text: 'Prix Revient', value: 'purchase_price_ht', align: 'right'},
+      { text: 'Prix Achat HT', value: 'purchase_price_ht', align: 'right'},
       { text: 'Prix Vente HT', value: 'sales_price_ht', align: 'right'},
     ],
   }),
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     setActiveItem(id) {
-      this.$store.dispatch('SET_ACTIVE_ELEMENT', id)
+      this.$store.dispatch('GET_ELEMENT', id)
     },
     isActive(id) {
       if (this.elements.activeElement === null) {

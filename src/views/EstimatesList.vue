@@ -92,7 +92,6 @@ export default {
   },
   mounted() {
     if (this.estimates.updateList) {
-      console.log('update')
       this.$store.dispatch('GET_ESTIMATES');
     }
   },

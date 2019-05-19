@@ -40,9 +40,6 @@ export default {
       })
       .catch(err => commit('SET_FLASH', { message: err, variant: 'success' }));
   },
-  SET_ACTIVE_ELEMENT: (store, payload) => {
-    store.commit('CHANGE_ACTIVE_ELEMENT', payload);
-  },
   CREATE_ELEMENT: async ({ commit }, payload) => {
     await axios.post(`${baseUrl}/elements`, payload.data, config)
       .then((res) => {

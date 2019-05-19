@@ -12,9 +12,6 @@ export default {
     state.elements.list = payload;
     state.elements.updateList = false;
   },
-  CHANGE_ACTIVE_ELEMENT: (state, payload) => {
-    state.elements.activeElement = state.elements.list.find(e => e.attributes.id === payload);
-  },
   RESET_ACTIVE_ELEMENT: (state, payload) => {
     state.elements.activeElement = null;
     state.elements.list = state.elements.list.filter(e => e.id !== payload);

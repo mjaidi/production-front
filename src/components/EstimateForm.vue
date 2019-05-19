@@ -85,14 +85,7 @@
     },
     mounted () {
       if (this.create === false) {
-        console.log('smths')
-        if (this.activeEstimate === null) {
-            this.$store.dispatch('GET_ESTIMATE', this.id)
-        } else {
-          this.number = this.activeEstimate.attributes.number
-          this.client = this.activeEstimate.attributes.client
-          this.remise = this.activeEstimate.attributes.remise
-        }
+          this.$store.dispatch('GET_ESTIMATE', this.id)
       }
     },
     watch: {
